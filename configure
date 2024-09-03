@@ -2056,6 +2056,7 @@ LIBRARY_LIST="
     avcodec
     swresample
     avutil
+    ffservice
 "
 
 LICENSE_LIST="
@@ -4031,13 +4032,14 @@ swresample_deps="avutil"
 swresample_suggest="libm libsoxr stdatomic"
 swscale_deps="avutil"
 swscale_suggest="libm stdatomic"
+ffservice_deps="avformat avcodec swresample swscale"
 
 avcodec_extralibs="pthreads_extralibs iconv_extralibs dxva2_extralibs lcms2_extralibs"
 avfilter_extralibs="pthreads_extralibs"
 avutil_extralibs="d3d11va_extralibs d3d12va_extralibs mediacodec_extralibs nanosleep_extralibs pthreads_extralibs vaapi_drm_extralibs vaapi_x11_extralibs vaapi_win32_extralibs vdpau_x11_extralibs"
 
 # programs
-ffmpeg_deps="avcodec avfilter avformat threads"
+ffmpeg_deps="avcodec avfilter avformat threads ffservice"
 ffmpeg_select="aformat_filter anull_filter atrim_filter format_filter
                hflip_filter null_filter
                transpose_filter trim_filter vflip_filter"
@@ -7131,6 +7133,14 @@ if enabled decklink; then
     esac
 fi
 
+if enabled ffservice;then
+    add_cxxflags "-D_GLIBCXX_USE_CXX11_ABI=0 -std=c++17  "
+    # check_ldflags "-Wl,--no-as-needed -lstdc++" 
+    add_ldflags "-lstdc++"
+    ffservice_extralibs="-lc++ -lc++abi -pthread -lpthread -lstdc++"
+fi
+
+
 enabled securetransport &&
     check_func SecIdentityCreate "-framework CoreFoundation -framework Security" &&
     check_lib securetransport "Security/SecureTransport.h Security/Security.h" "SSLCreateContext" "-framework CoreFoundation -framework Security" ||
@@ -7434,7 +7444,7 @@ void (^block)(void);
 EOF
 
 # add some linker flags
-check_ldflags -Wl,-rpath-link=:libpostproc:libswresample:libswscale:libavfilter:libavdevice:libavformat:libavcodec:libavutil
+check_ldflags -Wl,-rpath-link=:libpostproc:libswresample:libswscale:libavfilter:libavdevice:libavformat:libavcodec:libavutil:ffservice
 enabled rpath && add_ldexeflags -Wl,-rpath,$libdir && add_ldsoflags -Wl,-rpath,$libdir
 test_ldflags -Wl,-Bsymbolic && append SHFLAGS -Wl,-Bsymbolic
 
@@ -8314,6 +8324,7 @@ extralibs_avfilter="$avfilter_extralibs"
 extralibs_postproc="$postproc_extralibs"
 extralibs_swscale="$swscale_extralibs"
 extralibs_swresample="$swresample_extralibs"
+extralibs_ffservice="$ffservice_extralibs"
 EOF
 
 for lib in $LIBRARY_LIST; do

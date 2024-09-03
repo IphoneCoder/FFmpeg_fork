@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "timestamp.h": "c",
+        "codec_desc.h": "c",
+        "avformat.h": "c",
+        "thread.h": "c",
+        "vector": "c",
+        "ffmpeg.h": "c",
+        "swresample.h": "c",
+        "getenv_utf8.h": "c",
+        "cmdutils.h": "c",
+        "opt_common.h": "c"
+    }
+}
