@@ -100,7 +100,7 @@ typedef struct BenchmarkTimeStamps {
 static BenchmarkTimeStamps get_benchmark_time_stamps(void);
 static int64_t getmaxrss(void);
 
-THREAD_LOCAL atomic_uint nb_output_dumped = 0;
+atomic_uint nb_output_dumped = 0;
 
 THREAD_LOCAL static BenchmarkTimeStamps current_time;
 THREAD_LOCAL AVIOContext *progress_avio = NULL;

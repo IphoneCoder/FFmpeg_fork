@@ -1855,6 +1855,7 @@ EXTERNAL_AUTODETECT_LIBRARY_LIST="
     sndio
     xlib
     zlib
+    ffservice
 "
 
 EXTERNAL_LIBRARY_GPL_LIST="
@@ -2056,7 +2057,6 @@ LIBRARY_LIST="
     avcodec
     swresample
     avutil
-    ffservice
 "
 
 LICENSE_LIST="
@@ -4032,7 +4032,7 @@ swresample_deps="avutil"
 swresample_suggest="libm libsoxr stdatomic"
 swscale_deps="avutil"
 swscale_suggest="libm stdatomic"
-ffservice_deps="avformat avcodec swresample swscale"
+ffservice_deps="avformat avcodec swresample swscale sdl2"
 
 avcodec_extralibs="pthreads_extralibs iconv_extralibs dxva2_extralibs lcms2_extralibs"
 avfilter_extralibs="pthreads_extralibs"

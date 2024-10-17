@@ -708,7 +708,7 @@ extern  THREAD_LOCAL const AVIOInterruptCB int_cb;
 extern  THREAD_LOCAL const OptionDef *options;
 extern  THREAD_LOCAL HWDevice *filter_hw_device;
 
-extern  THREAD_LOCAL atomic_uint nb_output_dumped;
+extern  atomic_uint nb_output_dumped;
 
 extern  THREAD_LOCAL int ignore_unknown_streams;
 extern  THREAD_LOCAL int copy_unknown_streams;
